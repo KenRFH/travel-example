@@ -51,13 +51,17 @@ export default function VehicleDetailClient({
   date,
 }: VehicleDetailClientProps) {
   const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
+  const [passengers, setPassengers] = useState("1 Orang");
+  const [pickupAddress, setPickupAddress] = useState("");
+  const [destinationAddress, setDestinationAddress] = useState("");
+  const [notes, setNotes] = useState("");
   const [validationError, setValidationError] = useState("");
 
   const ticketPrice = route.price;
   const serviceFee = 5000;
-  const totalPrice = ticketPrice + serviceFee;
+  const passengerCount = parseInt(passengers) || 1;
+  const totalPrice = (ticketPrice * passengerCount) + serviceFee;
 
   // Dynamic image matching car name
   function getVehicleImage(name: string) {
@@ -78,19 +82,12 @@ export default function VehicleDetailClient({
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const activeImage = selectedImage || imagesArray[0];
 
-  // Parse departure time
-  const departureTime = schedule ? schedule.departureTime : "08:00";
-
   function handleBooking(e: React.FormEvent) {
     e.preventDefault();
     setValidationError("");
 
     if (!name.trim()) {
-      setValidationError("Nama lengkap sesuai KTP wajib diisi");
-      return;
-    }
-    if (!email.trim() || !email.includes("@")) {
-      setValidationError("Alamat email tidak valid");
+      setValidationError("Nama lengkap wajib diisi");
       return;
     }
     if (!phone.trim() || phone.length < 8) {
@@ -98,31 +95,53 @@ export default function VehicleDetailClient({
       return;
     }
 
-    // Format Indonesian travel date
-    const formattedDate = new Date(date).toLocaleDateString("id-ID", {
-      weekday: "long",
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-    });
+    // Format Indonesian travel date from props
+    let formattedDate = "";
+    if (date) {
+      try {
+        formattedDate = new Date(date).toLocaleDateString("id-ID", {
+          weekday: "long",
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+        });
+      } catch (err) {
+        formattedDate = date;
+      }
+    }
+
+    const departureTime = schedule ? schedule.departureTime : "06.00 WIB — Pagi";
 
     // Formulate structured WhatsApp text message
-    const message = `Halo Jember Travel, saya ingin memesan tiket perjalanan.
+    let message = `Halo Jember Travel, saya ingin memesan tiket perjalanan.
 
 Berikut adalah detail pesanan saya:
 - Rute: ${route.origin} ke ${route.destination}
-- Tanggal: ${formattedDate}
-- Waktu: ${departureTime}
-- Armada: ${carType.name}
+- Armada: ${carType.name}`;
 
-Detail Pemesan:
-- Nama: ${name}
-- Email: ${email}
-- WhatsApp: +62 ${phone}
+    if (formattedDate) {
+      message += `\n- Tanggal Berangkat: ${formattedDate}`;
+    }
+    if (departureTime) {
+      message += `\n- Jam Keberangkatan: ${departureTime}`;
+    }
+    
+    message += `\n- Nama Lengkap: ${name}
+- No. WhatsApp: +62 ${phone}
+- Jumlah Penumpang: ${passengers}`;
 
-Total Pembayaran: Rp ${totalPrice.toLocaleString("id-ID")} (termasuk biaya layanan Rp ${serviceFee.toLocaleString("id-ID")})
+    if (pickupAddress.trim()) {
+      message += `\n- Alamat Jemput: ${pickupAddress.trim()}`;
+    }
+    if (destinationAddress.trim()) {
+      message += `\n- Alamat Tujuan: ${destinationAddress.trim()}`;
+    }
+    if (notes.trim()) {
+      message += `\n- Catatan / Permintaan: ${notes.trim()}`;
+    }
 
-Mohon konfirmasi pesanan saya. Terima kasih!`;
+    message += `\n\nTotal Pembayaran: Rp ${totalPrice.toLocaleString("id-ID")} (termasuk biaya layanan Rp ${serviceFee.toLocaleString("id-ID")})`;
+    message += `\n\nMohon konfirmasi pesanan saya. Terima kasih!`;
 
     const waUrl = `https://wa.me/6281336104254?text=${encodeURIComponent(message)}`;
     window.open(waUrl, "_blank");
@@ -270,31 +289,23 @@ Mohon konfirmasi pesanan saya. Terima kasih!`;
               {/* Form */}
               <form onSubmit={handleBooking} className="space-y-5">
                 <div className="space-y-1">
-                  <label className="text-2xs font-bold uppercase tracking-wider text-on-surface-variant">Detail Pemesan</label>
+                  <label className="text-2xs font-bold uppercase tracking-wider text-on-surface-variant flex items-center gap-1">
+                    Nama Lengkap <span className="text-error font-bold">*</span>
+                  </label>
                   <input
                     type="text"
                     required
                     value={name}
                     onChange={(e) => setName(e.target.value)}
-                    className="w-full bg-surface-container-low border border-outline-variant/30 rounded-2xl py-3 px-4 text-primary font-semibold outline-none focus:border-primary text-sm"
-                    placeholder="Nama Lengkap Sesuai KTP"
+                    className="w-full bg-surface-container-low border border-outline-variant/30 rounded-2xl py-3 px-4 text-primary font-semibold outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 text-sm transition-all"
+                    placeholder="Nama lengkap Anda"
                   />
                 </div>
 
                 <div className="space-y-1">
-                  <label className="text-2xs font-bold uppercase tracking-wider text-on-surface-variant">Email</label>
-                  <input
-                    type="email"
-                    required
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    className="w-full bg-surface-container-low border border-outline-variant/30 rounded-2xl py-3 px-4 text-primary font-semibold outline-none focus:border-primary text-sm"
-                    placeholder="contoh@email.com"
-                  />
-                </div>
-
-                <div className="space-y-1">
-                  <label className="text-2xs font-bold uppercase tracking-wider text-on-surface-variant">Nomor WhatsApp</label>
+                  <label className="text-2xs font-bold uppercase tracking-wider text-on-surface-variant flex items-center gap-1">
+                    No. WhatsApp <span className="text-error font-bold">*</span>
+                  </label>
                   <div className="flex gap-2">
                     <div className="bg-surface-container border border-outline-variant/30 rounded-2xl px-4 py-3 text-sm font-bold text-primary flex items-center justify-center">
                       +62
@@ -304,17 +315,72 @@ Mohon konfirmasi pesanan saya. Terima kasih!`;
                       required
                       value={phone}
                       onChange={(e) => setPhone(e.target.value.replace(/[^0-9]/g, ""))}
-                      className="flex-1 bg-surface-container-low border border-outline-variant/30 rounded-2xl py-3 px-4 text-primary font-semibold outline-none focus:border-primary text-sm"
-                      placeholder="812 3456 789"
+                      className="flex-1 bg-surface-container-low border border-outline-variant/30 rounded-2xl py-3 px-4 text-primary font-semibold outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 text-sm transition-all"
+                      placeholder="08xx xxxx xxxx"
                     />
                   </div>
+                </div>
+
+                <div className="space-y-1">
+                  <label className="text-2xs font-bold uppercase tracking-wider text-on-surface-variant">Jumlah Penumpang</label>
+                  <div className="relative">
+                    <select
+                      value={passengers}
+                      onChange={(e) => setPassengers(e.target.value)}
+                      className="w-full bg-surface-container-low border border-outline-variant/30 rounded-2xl py-3 px-4 text-primary font-semibold outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 text-sm appearance-none cursor-pointer pr-10"
+                    >
+                      <option value="1 Orang">1 Orang</option>
+                      <option value="2 Orang">2 Orang</option>
+                      <option value="3 Orang">3 Orang</option>
+                      <option value="4 Orang">4 Orang</option>
+                      <option value="5 Orang">5 Orang</option>
+                      <option value="6 Orang">6 Orang</option>
+                    </select>
+                    <div className="absolute inset-y-0 right-4 flex items-center pointer-events-none text-primary">
+                      <MIcon name="unfold_more" className="text-lg" />
+                    </div>
+                  </div>
+                </div>
+
+
+
+                <div className="space-y-1">
+                  <label className="text-2xs font-bold uppercase tracking-wider text-on-surface-variant">Alamat Jemput</label>
+                  <input
+                    type="text"
+                    value={pickupAddress}
+                    onChange={(e) => setPickupAddress(e.target.value)}
+                    className="w-full bg-surface-container-low border border-outline-variant/30 rounded-2xl py-3 px-4 text-primary font-semibold outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 text-sm transition-all"
+                    placeholder="Alamat lengkap penjemputan"
+                  />
+                </div>
+
+                <div className="space-y-1">
+                  <label className="text-2xs font-bold uppercase tracking-wider text-on-surface-variant">Alamat Tujuan</label>
+                  <input
+                    type="text"
+                    value={destinationAddress}
+                    onChange={(e) => setDestinationAddress(e.target.value)}
+                    className="w-full bg-surface-container-low border border-outline-variant/30 rounded-2xl py-3 px-4 text-primary font-semibold outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 text-sm transition-all"
+                    placeholder="Alamat lengkap tujuan"
+                  />
+                </div>
+
+                <div className="space-y-1">
+                  <label className="text-2xs font-bold uppercase tracking-wider text-on-surface-variant">Catatan / Permintaan</label>
+                  <textarea
+                    value={notes}
+                    onChange={(e) => setNotes(e.target.value)}
+                    className="w-full bg-surface-container-low border border-outline-variant/30 rounded-2xl py-3.5 px-4 text-primary font-semibold outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 text-sm transition-all min-h-[90px] resize-y"
+                    placeholder="Catatan atau permintaan khusus"
+                  />
                 </div>
 
                 {/* Subtotals */}
                 <div className="pt-4 border-t border-outline-variant/20 space-y-2 text-xs font-semibold text-on-surface-variant">
                   <div className="flex justify-between">
-                    <span>Subtotal (1 Kursi)</span>
-                    <span className="text-primary font-bold">Rp {ticketPrice.toLocaleString("id-ID")}</span>
+                    <span>Subtotal ({passengerCount} Kursi)</span>
+                    <span className="text-primary font-bold">Rp {(ticketPrice * passengerCount).toLocaleString("id-ID")}</span>
                   </div>
                   <div className="flex justify-between">
                     <span>Biaya Layanan</span>

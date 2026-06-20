@@ -74,12 +74,12 @@ export default function HeroSection() {
       <div className="absolute inset-0 z-0">
         <div className="absolute inset-0 bg-gradient-to-r from-primary/60 via-primary/30 to-transparent z-10" />
         <Image
-          src="/images/hero-bg1.jpg"
+          src="/images/screen.png"
           alt={t("hero.subtitle")}
           fill
           sizes="100vw"
           className="object-cover"
-          priority
+          loading="lazy"
         />
       </div>
 

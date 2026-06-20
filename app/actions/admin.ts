@@ -1,7 +1,7 @@
 "use server";
 
 import { db } from "@/src/db/drizzle";
-import { admins, carTypes, routes, schedules } from "@/src/db/schema";
+import { admins, carTypes, routes, schedules, companyContents } from "@/src/db/schema";
 import { eq } from "drizzle-orm";
 import { cookies } from "next/headers";
 import { seedDatabase } from "@/src/db/seed";
@@ -375,5 +375,65 @@ export async function searchSchedules(from: string, to: string) {
   } catch (error) {
     console.error("Error searching schedules:", error);
     return [];
+  }
+}
+
+// ----------------- Company Contents Actions -----------------
+
+export async function getCompanyContent(key: string) {
+  await ensureDbSeeded();
+  try {
+    const data = await db
+      .select()
+      .from(companyContents)
+      .where(eq(companyContents.key, key))
+      .limit(1);
+
+    if (data.length === 0) {
+      return null;
+    }
+    return {
+      key: data[0].key,
+      contentId: JSON.parse(data[0].contentId),
+      contentEn: JSON.parse(data[0].contentEn),
+    };
+  } catch (error) {
+    console.error(`Error fetching company content for ${key}:`, error);
+    return null;
+  }
+}
+
+export async function updateCompanyContent(key: string, contentId: any, contentEn: any) {
+  await ensureDbSeeded();
+  try {
+    const existing = await db
+      .select()
+      .from(companyContents)
+      .where(eq(companyContents.key, key))
+      .limit(1);
+
+    const strContentId = typeof contentId === "string" ? contentId : JSON.stringify(contentId);
+    const strContentEn = typeof contentEn === "string" ? contentEn : JSON.stringify(contentEn);
+
+    if (existing.length > 0) {
+      await db
+        .update(companyContents)
+        .set({
+          contentId: strContentId,
+          contentEn: strContentEn,
+        })
+        .where(eq(companyContents.key, key));
+    } else {
+      await db.insert(companyContents).values({
+        key,
+        contentId: strContentId,
+        contentEn: strContentEn,
+      });
+    }
+
+    return { success: true };
+  } catch (error: any) {
+    console.error(`Error updating company content for ${key}:`, error);
+    return { success: false, error: error.message || "Failed to update page content" };
   }
 }

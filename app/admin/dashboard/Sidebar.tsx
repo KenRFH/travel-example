@@ -37,6 +37,11 @@ export default function Sidebar() {
       icon: "calendar_month",
       href: "/admin/dashboard/schedules",
     },
+    {
+      label: "Konten Halaman",
+      icon: "article",
+      href: "/admin/dashboard/contents",
+    },
   ];
 
   async function handleLogout() {

@@ -1,11 +1,33 @@
 import type { Metadata } from "next";
-import { Plus_Jakarta_Sans } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 
-const plusJakartaSans = Plus_Jakarta_Sans({
+const plusJakartaSans = localFont({
+  src: [
+    {
+      path: "../src/Inter,Outfit,Plus_Jakarta_Sans,Poppins/Plus_Jakarta_Sans/PlusJakartaSans-VariableFont_wght.ttf",
+      style: "normal",
+    },
+    {
+      path: "../src/Inter,Outfit,Plus_Jakarta_Sans,Poppins/Plus_Jakarta_Sans/PlusJakartaSans-Italic-VariableFont_wght.ttf",
+      style: "italic",
+    },
+  ],
   variable: "--font-plus-jakarta",
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700", "800"],
+});
+
+const inter = localFont({
+  src: [
+    {
+      path: "../src/Inter,Outfit,Plus_Jakarta_Sans,Poppins/Inter/Inter-VariableFont_opsz,wght.ttf",
+      style: "normal",
+    },
+    {
+      path: "../src/Inter,Outfit,Plus_Jakarta_Sans,Poppins/Inter/Inter-Italic-VariableFont_opsz,wght.ttf",
+      style: "italic",
+    },
+  ],
+  variable: "--font-inter",
 });
 
 export const metadata: Metadata = {
@@ -22,7 +44,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="id" className={`${plusJakartaSans.variable} antialiased`}>
+    <html lang="id" className={`${plusJakartaSans.variable} ${inter.variable} antialiased`} data-scroll-behavior="smooth">
       <head>
         <link
           rel="stylesheet"

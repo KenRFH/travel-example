@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useTranslation } from "@/src/lib/i18n";
 
 function MIcon({ name, className = "" }: { name: string; className?: string }) {
@@ -31,17 +32,17 @@ export default function Footer() {
           </h6>
           <ul className="space-y-4">
             {[
-              { label: t("footer.col1.link1"), href: "#" },
-              { label: t("footer.col1.link2"), href: "#" },
+              { label: t("footer.col1.link1"), href: "/about" },
+              { label: t("footer.col1.link2"), href: "/paket" },
               { label: t("footer.col1.link3"), href: "#" },
             ].map((item, i) => (
               <li key={i}>
-                <a
+                <Link
                   className="text-on-surface-variant hover:text-primary hover:translate-x-1 transition-all inline-block font-medium"
                   href={item.href}
                 >
                   {item.label}
-                </a>
+                </Link>
               </li>
             ))}
           </ul>
@@ -77,15 +78,17 @@ export default function Footer() {
           </h6>
           <ul className="space-y-4">
             <li className="flex items-center gap-2 text-on-surface-variant font-medium">
-              <MIcon name="call" className="text-lg text-primary" /> +62 812 3456 7890
+              <MIcon name="call" className="text-lg text-primary" /> +62 813 3610 4254
             </li>
             <li className="flex items-center gap-2 text-on-surface-variant font-medium">
-              <MIcon name="mail" className="text-lg text-primary" /> info@jembertravel.com
+              <MIcon name="mail" className="text-lg text-primary" /> support@jembertravel.com
             </li>
             <li className="pt-2">
               <a
                 className="text-primary font-bold flex items-center gap-2 hover:translate-x-1 transition-all"
-                href="#"
+                href="https://wa.me/6281336104254?text=Halo%20Jember%20Travel,%20saya%20membutuhkan%20bantuan%20support."
+                target="_blank"
+                rel="noopener noreferrer"
               >
                 WhatsApp Support
               </a>

@@ -1,6 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useTranslation, Locale } from "@/src/lib/i18n";
 
 function MIcon({ name, className = "" }: { name: string; className?: string }) {
@@ -11,8 +13,13 @@ function MIcon({ name, className = "" }: { name: string; className?: string }) {
 
 export default function Navbar() {
   const { t, locale, setLocale } = useTranslation();
+  const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  const isHome = pathname === "/";
+  const isAbout = pathname === "/about";
+  const isPackages = pathname === "/paket";
 
   useEffect(() => {
     const onScroll = () => {
@@ -41,30 +48,30 @@ export default function Navbar() {
     >
       <div className="flex justify-between items-center w-full px-5 md:px-16 h-full max-w-[1280px] mx-auto">
         {/* Logo */}
-        <a href="#" className="text-2xl font-bold text-primary tracking-tight hover:opacity-90 transition-opacity">
+        <Link href="/" className="text-2xl font-bold text-primary tracking-tight hover:opacity-90 transition-opacity">
           Jember Travel
-        </a>
+        </Link>
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center space-x-8 text-base">
-          <a
-            className="text-primary font-bold border-b-2 border-primary pb-1 transition-all"
-            href="#"
+          <Link
+            className={isHome ? "text-primary font-bold border-b-2 border-primary pb-1 transition-all" : "text-on-surface-variant hover:text-primary transition-colors font-medium"}
+            href="/"
           >
             {t("nav.findTicket")}
-          </a>
-          <a
-            className="text-on-surface-variant hover:text-primary transition-colors font-medium"
-            href="#"
+          </Link>
+          <Link
+            className={isAbout ? "text-primary font-bold border-b-2 border-primary pb-1 transition-all" : "text-on-surface-variant hover:text-primary transition-colors font-medium"}
+            href="/about"
           >
-            {t("nav.checkBooking")}
-          </a>
-          <a
-            className="text-on-surface-variant hover:text-primary transition-colors font-medium"
-            href="#"
+            {t("nav.aboutUs")}
+          </Link>
+          <Link
+            className={isPackages ? "text-primary font-bold border-b-2 border-primary pb-1 transition-all" : "text-on-surface-variant hover:text-primary transition-colors font-medium"}
+            href="/paket"
           >
-            {t("nav.promo")}
-          </a>
+            {t("nav.packages")}
+          </Link>
         </nav>
 
         {/* Desktop Right Controls */}
@@ -78,9 +85,6 @@ export default function Navbar() {
             <span className={locale === "id" ? "text-primary" : "text-outline"}>ID</span>
             <span className="text-outline">/</span>
             <span className={locale === "en" ? "text-primary" : "text-outline"}>EN</span>
-          </button>
-          <button className="bg-primary text-on-primary px-6 py-2.5 rounded-2xl text-sm font-semibold tracking-wider uppercase hover:scale-[1.02] active:scale-95 transition-all cursor-pointer">
-            {t("nav.login")}
           </button>
         </div>
 
@@ -118,37 +122,29 @@ export default function Navbar() {
       >
         <div className="flex flex-col h-full justify-between">
           <nav className="flex flex-col space-y-6 text-lg font-medium mt-4">
-            <a
-              className="text-primary font-bold pb-1 border-b border-primary/10"
-              href="#"
+            <Link
+              className={isHome ? "text-primary font-bold pb-1 border-b border-primary/10" : "text-on-surface-variant hover:text-primary transition-colors py-1"}
+              href="/"
               onClick={() => setMobileMenuOpen(false)}
             >
               {t("nav.findTicket")}
-            </a>
-            <a
-              className="text-on-surface-variant hover:text-primary transition-colors py-1"
-              href="#"
+            </Link>
+            <Link
+              className={isAbout ? "text-primary font-bold pb-1 border-b border-primary/10" : "text-on-surface-variant hover:text-primary transition-colors py-1"}
+              href="/about"
               onClick={() => setMobileMenuOpen(false)}
             >
-              {t("nav.checkBooking")}
-            </a>
-            <a
-              className="text-on-surface-variant hover:text-primary transition-colors py-1"
-              href="#"
+              {t("nav.aboutUs")}
+            </Link>
+            <Link
+              className={isPackages ? "text-primary font-bold pb-1 border-b border-primary/10" : "text-on-surface-variant hover:text-primary transition-colors py-1"}
+              href="/paket"
               onClick={() => setMobileMenuOpen(false)}
             >
-              {t("nav.promo")}
-            </a>
+              {t("nav.packages")}
+            </Link>
           </nav>
 
-          <div className="mb-8">
-            <button 
-              className="w-full bg-primary text-on-primary py-3.5 rounded-2xl text-sm font-semibold tracking-wider uppercase text-center hover:bg-primary-container transition-all"
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              {t("nav.login")}
-            </button>
-          </div>
         </div>
       </div>
     </header>

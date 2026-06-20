@@ -32,14 +32,6 @@ export default function CtaSection() {
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center relative z-10">
           <a
-            href="https://wa.me/6281336104254?text=Halo%20Jember%20Travel,%20saya%20tertarik%20untuk%20memesan%20tiket%20perjalanan."
-            target="_blank"
-            rel="noopener noreferrer"
-            className="bg-white text-primary px-8 py-4 rounded-2xl text-sm font-semibold tracking-wider uppercase hover:bg-surface-container hover:scale-[1.02] active:scale-95 transition-all cursor-pointer inline-flex items-center justify-center"
-          >
-            {t("cta.bookNow")}
-          </a>
-          <a
             href="https://wa.me/6281336104254?text=Halo%20Jember%20Travel,%20saya%20ingin%20tanya-tanya%20mengenai%20rute%20dan%20jadwal."
             target="_blank"
             rel="noopener noreferrer"

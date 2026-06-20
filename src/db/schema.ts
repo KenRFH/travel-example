@@ -40,3 +40,10 @@ export const schedules = sqliteTable("schedules", {
   departureTime: text("departure_time").notNull(), // e.g. "08:00"
   availableSeats: integer("available_seats").notNull(),
 });
+
+export const companyContents = sqliteTable("company_contents", {
+  id: integer("id").primaryKey({ autoIncrement: true }),
+  key: text("key").notNull().unique(), // "about" or "packages"
+  contentId: text("content_id").notNull(), // JSON string for Indonesian content
+  contentEn: text("content_en").notNull(), // JSON string for English content
+});

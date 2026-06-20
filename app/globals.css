@@ -58,6 +58,7 @@
 
   /* ===== Typography ===== */
   --font-sans: var(--font-plus-jakarta), "Plus Jakarta Sans", sans-serif;
+  --font-inter: var(--font-inter), "Inter", sans-serif;
 
   /* ===== Spacing ===== */
   --spacing-section-gap: 120px;
