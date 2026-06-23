@@ -114,6 +114,54 @@ const defaultPackagesEn = {
   ctaButton: "Contact Package Admin"
 };
 
+const defaultPrivateId = {
+  heroBadge: "Sewa & Charter Privat",
+  heroTitle: "Layanan Travel Private",
+  heroDesc: "Nikmati perjalanan eksklusif dan fleksibel bersama keluarga atau rekan kerja dengan sewa mobil + driver dari Jember Travel.",
+  serviceTitle: "Keunggulan Layanan Private",
+  serviceSubtitle: "Mengapa memilih layanan charter private Jember Travel?",
+  services: [
+    { icon: "schedule", title: "Jadwal Fleksibel", desc: "Tentukan sendiri waktu keberangkatan Anda tanpa terikat jadwal perjalanan reguler." },
+    { icon: "home", title: "Penjemputan Door-to-Door", desc: "Driver kami menjemput langsung ke alamat Anda dan mengantar hingga ke depan pintu tujuan." },
+    { icon: "group", title: "Kapasitas Rombongan", desc: "Tersedia berbagai pilihan armada mulai dari Avanza hingga Toyota Hiace sesuai kebutuhan Anda." },
+    { icon: "sentiment_very_satisfied", title: "Perjalanan Nyaman", desc: "Armada bersih, wangi, dan driver profesional yang ramah siap menemani perjalanan Anda." }
+  ],
+  pricingTitle: "Daftar Tarif Sewa Mobil",
+  pricingSubtitle: "Harga sewa all-in (mobil + driver + BBM) untuk rute populer.",
+  pricings: [
+    { route: "Jember - Surabaya / Malang (Avanza - Max 5 Pax)", price: "Rp 750.000", est: "All-in (Mobil, Driver, BBM)" },
+    { route: "Jember - Surabaya / Malang (Hiace Commuter - Max 14 Pax)", price: "Rp 1.200.000", est: "All-in (Mobil, Driver, BBM)" },
+    { route: "Jember - Surabaya / Malang (Hiace Premio - Max 11 Pax)", price: "Rp 1.400.000", est: "All-in (Mobil, Driver, BBM)" }
+  ],
+  ctaTitle: "Butuh Layanan Travel Private?",
+  ctaSubtitle: "Konsultasikan kebutuhan rute dan armada Anda dengan admin kami sekarang.",
+  ctaButton: "Hubungi Admin Private"
+};
+
+const defaultPrivateEn = {
+  heroBadge: "Private Rent & Charter",
+  heroTitle: "Private Travel Service",
+  heroDesc: "Enjoy an exclusive and flexible journey with your family or colleagues with car rental + driver from Jember Travel.",
+  serviceTitle: "Why Choose Our Private Service?",
+  serviceSubtitle: "Why choose Jember Travel private charter services?",
+  services: [
+    { icon: "schedule", title: "Flexible Schedule", desc: "Decide your own departure time without being bound to regular travel schedules." },
+    { icon: "home", title: "Door-to-Door Service", desc: "Our driver will pick you up directly from your address and deliver you to your door." },
+    { icon: "group", title: "Group Capacity", desc: "Various fleet options are available from Avanza to Toyota Hiace based on your needs." },
+    { icon: "sentiment_very_satisfied", title: "Comfortable Journey", desc: "Clean, fresh vehicle and professional friendly driver ready to accompany your trip." }
+  ],
+  pricingTitle: "Car Rental Rates List",
+  pricingSubtitle: "All-in rental prices (car + driver + fuel) for popular routes.",
+  pricings: [
+    { route: "Jember - Surabaya / Malang (Avanza - Max 5 Pax)", price: "Rp 750,000", est: "All-in (Car, Driver, Fuel)" },
+    { route: "Jember - Surabaya / Malang (Hiace Commuter - Max 14 Pax)", price: "Rp 1,200,000", est: "All-in (Car, Driver, Fuel)" },
+    { route: "Jember - Surabaya / Malang (Hiace Premio - Max 11 Pax)", price: "Rp 1,400,000", est: "All-in (Car, Driver, Fuel)" }
+  ],
+  ctaTitle: "Need a Private Travel Service?",
+  ctaSubtitle: "Consult your route and fleet requirements with our admin now.",
+  ctaButton: "Contact Private Admin"
+};
+
 export async function seedDatabase() {
   // 1. Seed Admin
   try {
@@ -129,7 +177,7 @@ export async function seedDatabase() {
     console.log("Admin account seed skipped or already exists.");
   }
 
-  // 2. Seed Company Contents (About Us & Packages)
+  // 2. Seed Company Contents (About Us, Packages, & Private)
   try {
     // Check and seed About Us
     const aboutContent = await db.select().from(companyContents).where(eq(companyContents.key, "about")).limit(1);
@@ -150,6 +198,17 @@ export async function seedDatabase() {
         key: "packages",
         contentId: JSON.stringify(defaultPackagesId),
         contentEn: JSON.stringify(defaultPackagesEn)
+      });
+    }
+
+    // Check and seed Private
+    const privateContent = await db.select().from(companyContents).where(eq(companyContents.key, "private")).limit(1);
+    if (privateContent.length === 0) {
+      console.log("Seeding default Private content...");
+      await db.insert(companyContents).values({
+        key: "private",
+        contentId: JSON.stringify(defaultPrivateId),
+        contentEn: JSON.stringify(defaultPrivateEn)
       });
     }
   } catch (error) {

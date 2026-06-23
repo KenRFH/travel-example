@@ -10,7 +10,9 @@ const dictionary = {
     // Navbar
     "nav.findTicket": "Cari Tiket",
     "nav.aboutUs": "Tentang Kami",
-    "nav.packages": "Paket",
+    "nav.services": "Layanan",
+    "nav.services.private": "Private",
+    "nav.services.packages": "Antar Paket",
     "nav.login": "Masuk",
     "nav.lang": "ID/EN",
 
@@ -61,6 +63,8 @@ const dictionary = {
     "footer.col1.title": "Perusahaan",
     "footer.col1.link1": "Tentang Kami",
     "footer.col1.link2": "Layanan Paket",
+    "footer.col1.link2_private": "Layanan Private",
+    "footer.col1.link2_packages": "Antar Paket",
     "footer.col1.link3": "Blog",
     "footer.col2.title": "Bantuan",
     "footer.col2.link1": "Pusat Bantuan",
@@ -104,7 +108,9 @@ const dictionary = {
     // Navbar
     "nav.findTicket": "Find Ticket",
     "nav.aboutUs": "About Us",
-    "nav.packages": "Packages",
+    "nav.services": "Services",
+    "nav.services.private": "Private",
+    "nav.services.packages": "Package Delivery",
     "nav.login": "Login",
     "nav.lang": "EN/ID",
 
@@ -155,6 +161,8 @@ const dictionary = {
     "footer.col1.title": "Company",
     "footer.col1.link1": "About Us",
     "footer.col1.link2": "Package Services",
+    "footer.col1.link2_private": "Private Services",
+    "footer.col1.link2_packages": "Package Delivery",
     "footer.col1.link3": "Blog",
     "footer.col2.title": "Help",
     "footer.col2.link1": "Help Center",

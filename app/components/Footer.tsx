@@ -33,7 +33,8 @@ export default function Footer() {
           <ul className="space-y-4">
             {[
               { label: t("footer.col1.link1"), href: "/about" },
-              { label: t("footer.col1.link2"), href: "/paket" },
+              { label: t("footer.col1.link2_private"), href: "/layanan/private" },
+              { label: t("footer.col1.link2_packages"), href: "/layanan/antar-paket" },
               { label: t("footer.col1.link3"), href: "#" },
             ].map((item, i) => (
               <li key={i}>

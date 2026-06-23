@@ -10,7 +10,7 @@ function MIcon({ name, className = "" }: { name: string; className?: string }) {
 }
 
 export default function ContentsPage() {
-  const [selectedKey, setSelectedKey] = useState<"about" | "packages">("about");
+  const [selectedKey, setSelectedKey] = useState<"about" | "packages" | "private">("about");
   
   // JSON states as strings for editing
   const [jsonId, setJsonId] = useState("");
@@ -114,7 +114,7 @@ export default function ContentsPage() {
         <div>
           <h1 className="text-3xl font-bold text-primary tracking-tight">Pengelola Konten Dinamis</h1>
           <p className="text-sm text-on-surface-variant font-medium mt-1">
-            Edit dan perbarui isi teks halaman Tentang Kami dan Layanan Paket secara langsung tanpa mengubah kode.
+            Edit dan perbarui isi teks halaman Tentang Kami, Layanan Private, dan Antar Paket secara langsung tanpa mengubah kode.
           </p>
         </div>
       </div>
@@ -125,7 +125,8 @@ export default function ContentsPage() {
           <span className="text-sm font-bold text-primary mr-2 uppercase tracking-wider">Halaman:</span>
           {[
             { key: "about", label: "Tentang Kami", icon: "info" },
-            { key: "packages", label: "Layanan Paket", icon: "local_shipping" }
+            { key: "private", label: "Layanan Private", icon: "directions_car" },
+            { key: "packages", label: "Antar Paket", icon: "local_shipping" }
           ].map((tab) => {
             const isSelected = selectedKey === tab.key;
             return (

@@ -16,10 +16,18 @@ export default function Navbar() {
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [mobileLayananOpen, setMobileLayananOpen] = useState(false);
 
   const isHome = pathname === "/";
   const isAbout = pathname === "/about";
-  const isPackages = pathname === "/paket";
+  const isPrivate = pathname === "/layanan/private";
+  const isPackages = pathname === "/layanan/antar-paket";
+  const isLayanan = pathname.startsWith("/layanan");
+
+  // Keep mobile menu & submenu state in sync on pathname change
+  useEffect(() => {
+    setMobileLayananOpen(pathname.startsWith("/layanan"));
+  }, [pathname]);
 
   useEffect(() => {
     const onScroll = () => {
@@ -66,12 +74,40 @@ export default function Navbar() {
           >
             {t("nav.aboutUs")}
           </Link>
-          <Link
-            className={isPackages ? "text-primary font-bold border-b-2 border-primary pb-1 transition-all" : "text-on-surface-variant hover:text-primary transition-colors font-medium"}
-            href="/paket"
-          >
-            {t("nav.packages")}
-          </Link>
+          
+          {/* Dropdown Layanan */}
+          <div className="relative group py-2">
+            <button
+              className={`flex items-center gap-1 cursor-pointer transition-all font-medium ${
+                isLayanan 
+                  ? "text-primary font-bold border-b-2 border-primary pb-1" 
+                  : "text-on-surface-variant hover:text-primary"
+              }`}
+            >
+              {t("nav.services")}
+              <MIcon name="expand_more" className="text-xs transition-transform group-hover:rotate-180" />
+            </button>
+            <div className="absolute left-0 mt-2 w-48 bg-white rounded-2xl shadow-xl border border-outline-variant/10 py-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform scale-95 group-hover:scale-100 origin-top-left z-50">
+              <Link
+                href="/layanan/private"
+                className={`flex items-center gap-2 px-4 py-3 text-sm transition-all hover:bg-primary/5 ${
+                  isPrivate ? "text-primary font-bold bg-primary/5" : "text-on-surface-variant font-medium"
+                }`}
+              >
+                <MIcon name="directions_car" className="text-base text-primary/70" />
+                {t("nav.services.private")}
+              </Link>
+              <Link
+                href="/layanan/antar-paket"
+                className={`flex items-center gap-2 px-4 py-3 text-sm transition-all hover:bg-primary/5 ${
+                  isPackages ? "text-primary font-bold bg-primary/5" : "text-on-surface-variant font-medium"
+                }`}
+              >
+                <MIcon name="local_shipping" className="text-base text-primary/70" />
+                {t("nav.services.packages")}
+              </Link>
+            </div>
+          </div>
         </nav>
 
         {/* Desktop Right Controls */}
@@ -136,15 +172,45 @@ export default function Navbar() {
             >
               {t("nav.aboutUs")}
             </Link>
-            <Link
-              className={isPackages ? "text-primary font-bold pb-1 border-b border-primary/10" : "text-on-surface-variant hover:text-primary transition-colors py-1"}
-              href="/paket"
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              {t("nav.packages")}
-            </Link>
+            
+            {/* Mobile Dropdown for Layanan */}
+            <div className="flex flex-col">
+              <button
+                onClick={() => setMobileLayananOpen(!mobileLayananOpen)}
+                className={`flex items-center justify-between text-left py-1 font-medium transition-colors cursor-pointer ${
+                  isLayanan ? "text-primary font-bold" : "text-on-surface-variant hover:text-primary"
+                }`}
+              >
+                <span>{t("nav.services")}</span>
+                <MIcon name={mobileLayananOpen ? "expand_less" : "expand_more"} className="text-xl text-primary" />
+              </button>
+              
+              {mobileLayananOpen && (
+                <div className="flex flex-col pl-4 mt-2 space-y-3 border-l border-primary/10 animate-fade-in">
+                  <Link
+                    href="/layanan/private"
+                    className={`flex items-center gap-2 py-1 text-base transition-colors ${
+                      isPrivate ? "text-primary font-bold" : "text-on-surface-variant hover:text-primary"
+                    }`}
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    <MIcon name="directions_car" className="text-base text-primary/70" />
+                    {t("nav.services.private")}
+                  </Link>
+                  <Link
+                    href="/layanan/antar-paket"
+                    className={`flex items-center gap-2 py-1 text-base transition-colors ${
+                      isPackages ? "text-primary font-bold" : "text-on-surface-variant hover:text-primary"
+                    }`}
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    <MIcon name="local_shipping" className="text-base text-primary/70" />
+                    {t("nav.services.packages")}
+                  </Link>
+                </div>
+              )}
+            </div>
           </nav>
-
         </div>
       </div>
     </header>
