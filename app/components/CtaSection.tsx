@@ -32,7 +32,7 @@ export default function CtaSection() {
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center relative z-10">
           <a
-            href="https://wa.me/6281336104254?text=Halo%20Jember%20Travel,%20saya%20ingin%20tanya-tanya%20mengenai%20rute%20dan%20jadwal."
+            href="https://wa.me/6281336104254?text=Halo%20Indo%20Travel,%20saya%20ingin%20tanya-tanya%20mengenai%20rute%20dan%20jadwal."
             target="_blank"
             rel="noopener noreferrer"
             className="bg-transparent text-white border border-white/30 px-8 py-4 rounded-2xl text-sm font-semibold tracking-wider uppercase hover:bg-white/10 hover:scale-[1.02] active:scale-95 transition-all flex items-center justify-center gap-2 cursor-pointer inline-flex"

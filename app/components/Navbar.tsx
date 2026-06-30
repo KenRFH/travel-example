@@ -57,7 +57,7 @@ export default function Navbar() {
       <div className="flex justify-between items-center w-full px-5 md:px-16 h-full max-w-[1280px] mx-auto">
         {/* Logo */}
         <Link href="/" className="text-2xl font-bold text-primary tracking-tight hover:opacity-90 transition-opacity">
-          Jember Travel
+          Indo Travel
         </Link>
 
         {/* Desktop Navigation */}

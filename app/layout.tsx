@@ -31,7 +31,7 @@ const inter = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Jember Travel - Perjalanan Modern Berjiwa Tradisi",
+  title: "Indo Travel - Perjalanan Modern Berjiwa Tradisi",
   description:
     "Layanan travel premium antar kota dari Jember. Nikmati perjalanan nyaman dengan armada modern dan layanan tulus dari hati.",
 };

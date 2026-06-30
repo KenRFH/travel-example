@@ -18,7 +18,7 @@ export default function Footer() {
         {/* Brand */}
         <div className="col-span-1">
           <div className="text-xl font-bold text-primary mb-4">
-            Jember Travel
+            Indo Travel
           </div>
           <p className="text-on-surface-variant mb-6 leading-relaxed">
             {t("footer.desc")}
@@ -82,12 +82,12 @@ export default function Footer() {
               <MIcon name="call" className="text-lg text-primary" /> +62 813 3610 4254
             </li>
             <li className="flex items-center gap-2 text-on-surface-variant font-medium">
-              <MIcon name="mail" className="text-lg text-primary" /> support@jembertravel.com
+              <MIcon name="mail" className="text-lg text-primary" /> support@indotravel.com
             </li>
             <li className="pt-2">
               <a
                 className="text-primary font-bold flex items-center gap-2 hover:translate-x-1 transition-all"
-                href="https://wa.me/6281336104254?text=Halo%20Jember%20Travel,%20saya%20membutuhkan%20bantuan%20support."
+                href="https://wa.me/6281336104254?text=Halo%20Indo%20Travel,%20saya%20membutuhkan%20bantuan%20support."
                 target="_blank"
                 rel="noopener noreferrer"
               >

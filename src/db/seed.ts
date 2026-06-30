@@ -4,7 +4,7 @@ import { eq } from "drizzle-orm";
 
 const defaultAboutId = {
   heroBadge: "Kisah & Komitmen Kami",
-  heroTitle: "Tentang Jember Travel",
+  heroTitle: "Tentang Indo Travel",
   heroDesc: "Menghubungkan hati dan kota dengan pelayanan tulus dari hati sejak 2018.",
   visionTitle: "Visi Kami",
   visionDesc: "Menjadi pelopor transportasi premium di Jawa Timur yang memadukan kenyamanan modern dengan kehangatan keramahan lokal.",
@@ -35,7 +35,7 @@ const defaultAboutId = {
 
 const defaultAboutEn = {
   heroBadge: "Our Story & Commitment",
-  heroTitle: "About Jember Travel",
+  heroTitle: "About Indo Travel",
   heroDesc: "Connecting hearts and cities with genuine service from the heart since 2018.",
   visionTitle: "Our Vision",
   visionDesc: "To be a pioneer of premium transportation in East Java that blends modern comfort with the warmth of local hospitality.",
@@ -67,9 +67,9 @@ const defaultAboutEn = {
 const defaultPackagesId = {
   heroBadge: "Layanan Logistik & Kargo",
   heroTitle: "Pengiriman Paket Kilat",
-  heroDesc: "Kirim barang dan dokumen Anda dengan aman, cepat, dan terpercaya bersama armada Jember Travel.",
+  heroDesc: "Kirim barang dan dokumen Anda dengan aman, cepat, dan terpercaya bersama armada Indo Travel.",
   serviceTitle: "Keunggulan Layanan Paket Kami",
-  serviceSubtitle: "Mengapa memilih layanan pengiriman paket Jember Travel?",
+  serviceSubtitle: "Mengapa memilih layanan pengiriman paket Indo Travel?",
   services: [
     { icon: "speed", title: "Sama Hari Sampai (Same Day)", desc: "Paket Anda dikirim hari ini dan tiba hari ini juga, mengikuti jadwal keberangkatan armada kami." },
     { icon: "local_shipping", title: "Pengantaran Door-to-Door", desc: "Kami menjemput paket ke rumah Anda dan mengantarkannya langsung ke alamat tujuan secara presisi." },
@@ -92,9 +92,9 @@ const defaultPackagesId = {
 const defaultPackagesEn = {
   heroBadge: "Logistics & Cargo Service",
   heroTitle: "Express Package Delivery",
-  heroDesc: "Send your goods and documents safely, quickly, and reliably with the Jember Travel fleet.",
+  heroDesc: "Send your goods and documents safely, quickly, and reliably with the Indo Travel fleet.",
   serviceTitle: "Why Choose Our Package Delivery?",
-  serviceSubtitle: "Why choose Jember Travel express cargo services?",
+  serviceSubtitle: "Why choose Indo Travel express cargo services?",
   services: [
     { icon: "speed", title: "Same Day Delivery", desc: "Your package is sent today and arrives today, following our fleet's departure schedules." },
     { icon: "local_shipping", title: "Door-to-Door Service", desc: "We pick up the package from your doorstep and deliver it directly to the recipient's address." },
@@ -117,9 +117,9 @@ const defaultPackagesEn = {
 const defaultPrivateId = {
   heroBadge: "Sewa & Charter Privat",
   heroTitle: "Layanan Travel Private",
-  heroDesc: "Nikmati perjalanan eksklusif dan fleksibel bersama keluarga atau rekan kerja dengan sewa mobil + driver dari Jember Travel.",
+  heroDesc: "Nikmati perjalanan eksklusif dan fleksibel bersama keluarga atau rekan kerja dengan sewa mobil + driver dari Indo Travel.",
   serviceTitle: "Keunggulan Layanan Private",
-  serviceSubtitle: "Mengapa memilih layanan charter private Jember Travel?",
+  serviceSubtitle: "Mengapa memilih layanan charter private Indo Travel?",
   services: [
     { icon: "schedule", title: "Jadwal Fleksibel", desc: "Tentukan sendiri waktu keberangkatan Anda tanpa terikat jadwal perjalanan reguler." },
     { icon: "home", title: "Penjemputan Door-to-Door", desc: "Driver kami menjemput langsung ke alamat Anda dan mengantar hingga ke depan pintu tujuan." },
@@ -135,15 +135,49 @@ const defaultPrivateId = {
   ],
   ctaTitle: "Butuh Layanan Travel Private?",
   ctaSubtitle: "Konsultasikan kebutuhan rute dan armada Anda dengan admin kami sekarang.",
-  ctaButton: "Hubungi Admin Private"
+  ctaButton: "Hubungi Admin Private",
+  vehicles: [
+    {
+      id: "zenix",
+      name: "Toyota Innova Zenix",
+      badge: "Most Popular",
+      image: "/images/toyota_zenix.png",
+      seats: "6 Seats",
+      bags: "3 Bags",
+      features: [
+        "Full AC Dual Zone",
+        "Reclining Seat Premium",
+        "Professional Driver"
+      ],
+      price: "Rp 950.000",
+      rawPrice: 950000,
+      maxSeats: 6
+    },
+    {
+      id: "hiace",
+      name: "Toyota HiAce Premio",
+      badge: "",
+      image: "/images/toyota_hiace_premio.png",
+      seats: "11 Seats",
+      bags: "6 Bags",
+      features: [
+        "Cabin Luas & Tinggi",
+        "Entertainment System",
+        "Driver & Tour Assistant"
+      ],
+      price: "Rp 1.800.000",
+      rawPrice: 1800000,
+      maxSeats: 11
+    }
+  ]
 };
 
 const defaultPrivateEn = {
   heroBadge: "Private Rent & Charter",
   heroTitle: "Private Travel Service",
-  heroDesc: "Enjoy an exclusive and flexible journey with your family or colleagues with car rental + driver from Jember Travel.",
+  heroDesc: "Enjoy an exclusive and flexible journey with your family or colleagues with car rental + driver from Indo Travel.",
   serviceTitle: "Why Choose Our Private Service?",
-  serviceSubtitle: "Why choose Jember Travel private charter services?",
+  serviceSubtitle: "Why choose Indo Travel private charter services?",
   services: [
     { icon: "schedule", title: "Flexible Schedule", desc: "Decide your own departure time without being bound to regular travel schedules." },
     { icon: "home", title: "Door-to-Door Service", desc: "Our driver will pick you up directly from your address and deliver you to your door." },
@@ -159,7 +193,41 @@ const defaultPrivateEn = {
   ],
   ctaTitle: "Need a Private Travel Service?",
   ctaSubtitle: "Consult your route and fleet requirements with our admin now.",
-  ctaButton: "Contact Private Admin"
+  ctaButton: "Contact Private Admin",
+  vehicles: [
+    {
+      id: "zenix",
+      name: "Toyota Innova Zenix",
+      badge: "Most Popular",
+      image: "/images/toyota_zenix.png",
+      seats: "6 Seats",
+      bags: "3 Bags",
+      features: [
+        "Full AC Dual Zone",
+        "Reclining Seat Premium",
+        "Professional Driver"
+      ],
+      price: "Rp 950,000",
+      rawPrice: 950000,
+      maxSeats: 6
+    },
+    {
+      id: "hiace",
+      name: "Toyota HiAce Premio",
+      badge: "",
+      image: "/images/toyota_hiace_premio.png",
+      seats: "11 Seats",
+      bags: "6 Bags",
+      features: [
+        "Cabin Luas & Tinggi",
+        "Entertainment System",
+        "Driver & Tour Assistant"
+      ],
+      price: "Rp 1.800.000",
+      rawPrice: 1800000,
+      maxSeats: 11
+    }
+  ]
 };
 
 export async function seedDatabase() {
@@ -170,7 +238,7 @@ export async function seedDatabase() {
       console.log("Seeding default admin account...");
       await db.insert(admins).values({
         username: "admin",
-        password: "jembertravel2026",
+        password: "indotravel2026",
       });
     }
   } catch (error) {

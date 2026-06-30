@@ -31,9 +31,9 @@ export default function AntarPaketPage() {
   const defaultId = {
     heroBadge: "Layanan Logistik & Kargo",
     heroTitle: "Pengiriman Paket Kilat",
-    heroDesc: "Kirim barang dan dokumen Anda dengan aman, cepat, dan terpercaya bersama armada Jember Travel.",
+    heroDesc: "Kirim barang dan dokumen Anda dengan aman, cepat, dan terpercaya bersama armada Indo Travel.",
     serviceTitle: "Keunggulan Layanan Paket Kami",
-    serviceSubtitle: "Mengapa memilih layanan pengiriman paket Jember Travel?",
+    serviceSubtitle: "Mengapa memilih layanan pengiriman paket Indo Travel?",
     services: [
       { icon: "speed", title: "Sama Hari Sampai (Same Day)", desc: "Paket Anda dikirim hari ini dan tiba hari ini juga, mengikuti jadwal keberangkatan armada kami." },
       { icon: "local_shipping", title: "Pengantaran Door-to-Door", desc: "Kami menjemput paket ke rumah Anda dan mengantarkannya langsung ke alamat tujuan secara presisi." },
@@ -56,9 +56,9 @@ export default function AntarPaketPage() {
   const defaultEn = {
     heroBadge: "Logistics & Cargo Service",
     heroTitle: "Express Package Delivery",
-    heroDesc: "Send your goods and documents safely, quickly, and reliably with the Jember Travel fleet.",
+    heroDesc: "Send your goods and documents safely, quickly, and reliably with the Indo Travel fleet.",
     serviceTitle: "Why Choose Our Package Delivery?",
-    serviceSubtitle: "Why choose Jember Travel express cargo services?",
+    serviceSubtitle: "Why choose Indo Travel express cargo services?",
     services: [
       { icon: "speed", title: "Same Day Delivery", desc: "Your package is sent today and arrives today, following our fleet's departure schedules." },
       { icon: "local_shipping", title: "Door-to-Door Service", desc: "We pick up the package from your doorstep and deliver it directly to the recipient's address." },
@@ -208,8 +208,8 @@ export default function AntarPaketPage() {
               <a
                 href={`https://wa.me/6281336104254?text=${encodeURIComponent(
                   locale === "id"
-                    ? "Halo Jember Travel, saya tertarik untuk mengirim paket barang."
-                    : "Hello Jember Travel, I am interested in sending a package delivery."
+                    ? "Halo Indo Travel, saya tertarik untuk mengirim paket barang."
+                    : "Hello Indo Travel, I am interested in sending a package delivery."
                 )}`}
                 target="_blank"
                 rel="noopener noreferrer"

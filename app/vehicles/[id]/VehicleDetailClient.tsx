@@ -113,7 +113,7 @@ export default function VehicleDetailClient({
     const departureTime = schedule ? schedule.departureTime : "06.00 WIB — Pagi";
 
     // Formulate structured WhatsApp text message
-    let message = `Halo Jember Travel, saya ingin memesan tiket perjalanan.
+    let message = `Halo Indo Travel, saya ingin memesan tiket perjalanan.
 
 Berikut adalah detail pesanan saya:
 - Rute: ${route.origin} ke ${route.destination}

@@ -1,9 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import Navbar from "@/app/components/Navbar";
 import Footer from "@/app/components/Footer";
+import { useTranslation } from "@/src/lib/i18n";
+import { getCompanyContent } from "@/app/actions/admin";
 
 function MIcon({ name, className = "" }: { name: string; className?: string }) {
   return (
@@ -12,6 +14,8 @@ function MIcon({ name, className = "" }: { name: string; className?: string }) {
 }
 
 export default function PrivateCharterPage() {
+  const { locale } = useTranslation();
+  const [content, setContent] = useState<any>(null);
   const [selectedVehicle, setSelectedVehicle] = useState<string>("Toyota Innova Zenix");
   const [travelDate, setTravelDate] = useState<string>("");
   const [pickupLocation, setPickupLocation] = useState<string>("");
@@ -22,7 +26,17 @@ export default function PrivateCharterPage() {
   // Validation indicator
   const [showValidationMsg, setShowValidationMsg] = useState(false);
 
-  const vehicles = [
+  useEffect(() => {
+    async function loadContent() {
+      const data = await getCompanyContent("private");
+      if (data) {
+        setContent(locale === "id" ? data.contentId : data.contentEn);
+      }
+    }
+    loadContent();
+  }, [locale]);
+
+  const fallbackVehicles = [
     {
       id: "zenix",
       name: "Toyota Innova Zenix",
@@ -36,7 +50,8 @@ export default function PrivateCharterPage() {
         "Professional Driver"
       ],
       price: "Rp 950.000",
-      rawPrice: 950000
+      rawPrice: 950000,
+      maxSeats: 6
     },
     {
       id: "hiace",
@@ -51,9 +66,41 @@ export default function PrivateCharterPage() {
         "Driver & Tour Assistant"
       ],
       price: "Rp 1.800.000",
-      rawPrice: 1800000
+      rawPrice: 1800000,
+      maxSeats: 11
     }
   ];
+
+  const defaultId = {
+    heroBadge: "PREMIUM CHARTER",
+    heroTitle: "Layanan Private & Charter",
+    heroDesc: "Nikmati kebebasan menjelajah Nusantara dengan kenyamanan eksklusif. Armada modern, pengemudi profesional, dan fleksibilitas rute yang sepenuhnya berada di tangan Anda.",
+    serviceTitle: "Pilih Armada Anda",
+    serviceSubtitle: "Armada terawat dengan standar kebersihan tinggi.",
+    vehicles: fallbackVehicles
+  };
+
+  const defaultEn = {
+    heroBadge: "PREMIUM CHARTER",
+    heroTitle: "Private & Charter Service",
+    heroDesc: "Enjoy the freedom to explore the archipelago with exclusive comfort. Modern fleet, professional drivers, and flexibility of routes are completely in your hands.",
+    serviceTitle: "Choose Your Fleet",
+    serviceSubtitle: "Well-maintained fleet with high standards of cleanliness.",
+    vehicles: fallbackVehicles
+  };
+
+  const data = content || (locale === "id" ? defaultId : defaultEn);
+  const vehicles = data.vehicles || fallbackVehicles;
+
+  // Auto-sync selected vehicle with database contents list
+  useEffect(() => {
+    if (vehicles && vehicles.length > 0) {
+      const exists = vehicles.some((v: any) => v.name === selectedVehicle);
+      if (!exists) {
+        setSelectedVehicle(vehicles[0].name);
+      }
+    }
+  }, [vehicles]);
 
   const handleBookingSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -63,12 +110,13 @@ export default function PrivateCharterPage() {
     }
     setShowValidationMsg(false);
 
-    const basePrice = selectedVehicle === "Toyota Innova Zenix" ? 950000 : 1800000;
+    const selectedVehObj = vehicles.find((v: any) => v.name === selectedVehicle);
+    const basePrice = selectedVehObj ? (selectedVehObj.rawPrice || 950000) : 950000;
     const totalPayment = basePrice + 5000;
     const totalFormatted = "Rp " + totalPayment.toLocaleString("id-ID");
 
     // Build Whatsapp Booking Message in requested template format
-    const message = `Halo Jember Travel, saya ingin memesan tiket perjalanan.
+    const message = `Halo Indo Travel, saya ingin memesan tiket perjalanan.
 
 Berikut adalah detail pesanan saya:
 • Armada: ${selectedVehicle}
@@ -113,13 +161,13 @@ Mohon konfirmasi pesanan saya. Terima kasih!`;
         <div className="relative z-20 w-full max-w-[1280px] mx-auto px-5 md:px-16 text-white">
           <div className="max-w-[600px] text-left">
             <span className="inline-block px-4 py-1.5 bg-white/10 text-primary-fixed-dim rounded-full text-xs font-bold tracking-wider uppercase mb-6 backdrop-blur-md border border-white/10">
-              PREMIUM CHARTER
+              {data.heroBadge}
             </span>
             <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight tracking-tight drop-shadow-sm">
-              Layanan Private & Charter
+              {data.heroTitle}
             </h1>
             <p className="text-base md:text-lg text-white/90 leading-relaxed mb-8 drop-shadow-sm font-medium">
-              Nikmati kebebasan menjelajah Nusantara dengan kenyamanan eksklusif. Armada modern, pengemudi profesional, dan fleksibilitas rute yang sepenuhnya berada di tangan Anda.
+              {data.heroDesc}
             </p>
           </div>
         </div>
@@ -136,13 +184,13 @@ Mohon konfirmasi pesanan saya. Terima kasih!`;
             <section className="space-y-8">
               <div>
                 <span className="text-secondary font-bold text-xs uppercase tracking-widest block mb-2">PILIH KENDARAAN</span>
-                <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-primary">Pilih Armada Anda</h2>
-                <p className="text-on-surface-variant font-semibold text-sm mt-1">Armada terawat dengan standar kebersihan tinggi.</p>
+                <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-primary">{data.serviceTitle}</h2>
+                <p className="text-on-surface-variant font-semibold text-sm mt-1">{data.serviceSubtitle}</p>
               </div>
 
               {/* Vehicle Cards List */}
               <div className="space-y-6">
-                {vehicles.map((veh) => {
+                {vehicles.map((veh: any) => {
                   const isSelected = selectedVehicle === veh.name;
                   return (
                     <div 
@@ -205,7 +253,7 @@ Mohon konfirmasi pesanan saya. Terima kasih!`;
 
                           {/* Features */}
                           <ul className="space-y-2 text-xs font-bold text-on-surface-variant/80">
-                            {veh.features.map((feat, i) => (
+                            {veh.features.map((feat: any, i: number) => (
                               <li key={i} className="flex items-center gap-2">
                                 <span className="w-1.5 h-1.5 rounded-full bg-secondary" />
                                 {feat}
@@ -373,13 +421,19 @@ Mohon konfirmasi pesanan saya. Terima kasih!`;
                     id="passenger-count"
                     required
                     min={1}
-                    max={selectedVehicle === "Toyota Innova Zenix" ? 6 : 11}
+                    max={(() => {
+                      const selectedVehObj = vehicles.find((v: any) => v.name === selectedVehicle);
+                      return selectedVehObj ? (selectedVehObj.maxSeats || 10) : 10;
+                    })()}
                     value={passengerCount}
                     onChange={(e) => {
                       setPassengerCount(e.target.value);
                       setShowValidationMsg(false);
                     }}
-                    placeholder={`Maksimal ${selectedVehicle === "Toyota Innova Zenix" ? 6 : 11} penumpang`}
+                    placeholder={`Maksimal ${(() => {
+                      const selectedVehObj = vehicles.find((v: any) => v.name === selectedVehicle);
+                      return selectedVehObj ? (selectedVehObj.maxSeats || 10) : 10;
+                    })()} penumpang`}
                     className="w-full text-xs p-3.5 bg-surface-container-low rounded-xl border border-outline-variant/30 outline-none transition-all duration-300 focus:bg-white focus:border-primary focus:ring-2 focus:ring-primary/10 font-bold"
                   />
                 </div>

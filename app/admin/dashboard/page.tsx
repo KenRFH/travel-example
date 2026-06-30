@@ -47,7 +47,7 @@ export default async function DashboardPage() {
       <div>
         <h1 className="text-3xl font-bold text-primary tracking-tight">Ringkasan Operasional</h1>
         <p className="text-sm text-on-surface-variant font-medium mt-1">
-          Pantau dan kelola seluruh penawaran rute, armada bus/mobil, serta jadwal departur Jember Travel.
+          Pantau dan kelola seluruh penawaran rute, armada bus/mobil, serta jadwal departur Indo Travel.
         </p>
       </div>
 

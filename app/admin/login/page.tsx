@@ -46,7 +46,7 @@ export default function LoginPage() {
             <MIcon name="arrow_back" className="text-sm" /> Kembali ke Beranda
           </a>
           <h1 className="text-2xl font-bold text-primary tracking-tight">
-            Portal Admin Jember Travel
+            Portal Admin Indo Travel
           </h1>
           <p className="text-sm text-on-surface-variant mt-2 font-medium">
             Masuk untuk mengelola rute, kendaraan, dan jadwal

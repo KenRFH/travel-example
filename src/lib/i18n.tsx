@@ -50,7 +50,7 @@ const dictionary = {
     "testi.badge": "Testimoni",
     "testi.title": "Apa Kata Pelanggan Kami?",
     "testi.avatarAlt": "Foto pelanggan",
-    "testi.vanAlt": "Interior armada premium Jember Travel",
+    "testi.vanAlt": "Interior armada premium Indo Travel",
 
     // CTA
     "cta.title": "Siap Memulai Perjalanan Anda?",
@@ -71,11 +71,11 @@ const dictionary = {
     "footer.col2.link2": "Syarat & Ketentuan",
     "footer.col2.link3": "Kebijakan Privasi",
     "footer.col3.title": "Kontak",
-    "footer.copyright": "© 2026 Jember Travel. Pelayanan Travel Terpercaya.",
+    "footer.copyright": "© 2026 Indo Travel. Pelayanan Travel Terpercaya.",
 
     // About Us Page
     "about.hero.badge": "Kisah & Komitmen Kami",
-    "about.hero.title": "Tentang Jember Travel",
+    "about.hero.title": "Tentang Indo Travel",
     "about.hero.desc": "Menghubungkan hati dan kota dengan pelayanan tulus dari hati sejak 2018.",
     "about.vision.title": "Visi & Misi Kami",
     "about.vision.desc": "Menjadi pelopor transportasi premium di Jawa Timur yang memadukan kenyamanan modern dengan kehangatan keramahan lokal.",
@@ -148,7 +148,7 @@ const dictionary = {
     "testi.badge": "Testimonials",
     "testi.title": "What Our Customers Say",
     "testi.avatarAlt": "Customer photo",
-    "testi.vanAlt": "Interior of Jember Travel premium fleet",
+    "testi.vanAlt": "Interior of Indo Travel premium fleet",
 
     // CTA
     "cta.title": "Ready to Start Your Journey?",
@@ -169,11 +169,11 @@ const dictionary = {
     "footer.col2.link2": "Terms & Conditions",
     "footer.col2.link3": "Privacy Policy",
     "footer.col3.title": "Contact",
-    "footer.copyright": "© 2026 Jember Travel. Trusted Travel Service.",
+    "footer.copyright": "© 2026 Indo Travel. Trusted Travel Service.",
 
     // About Us Page
     "about.hero.badge": "Our Story & Commitment",
-    "about.hero.title": "About Jember Travel",
+    "about.hero.title": "About Indo Travel",
     "about.hero.desc": "Connecting hearts and cities with genuine service from the heart since 2018.",
     "about.vision.title": "Our Vision & Mission",
     "about.vision.desc": "To be a pioneer of premium transportation in East Java that blends modern comfort with the warmth of local hospitality.",
@@ -218,7 +218,7 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
 
   // Load from localStorage only after mounting to avoid hydration mismatch
   useEffect(() => {
-    const savedLocale = localStorage.getItem("jember-travel-locale") as Locale;
+    const savedLocale = localStorage.getItem("indo-travel-locale") as Locale;
     if (savedLocale === "id" || savedLocale === "en") {
       setLocaleState(savedLocale);
       document.documentElement.lang = savedLocale;
@@ -230,7 +230,7 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
 
   const setLocale = (newLocale: Locale) => {
     setLocaleState(newLocale);
-    localStorage.setItem("jember-travel-locale", newLocale);
+    localStorage.setItem("indo-travel-locale", newLocale);
     document.documentElement.lang = newLocale;
   };
 

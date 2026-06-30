@@ -55,7 +55,7 @@ export default function Sidebar() {
     <aside className="w-64 bg-primary text-white flex flex-col justify-between border-r border-primary-container z-20 h-screen fixed top-0 left-0">
       {/* Brand Header */}
       <div className="p-6 border-b border-white/10">
-        <h2 className="text-xl font-bold tracking-tight">Admin Jember</h2>
+        <h2 className="text-xl font-bold tracking-tight">Admin Indo</h2>
         <span className="text-xs text-white/50 font-semibold tracking-wider uppercase block mt-1">
           Travel Management
         </span>

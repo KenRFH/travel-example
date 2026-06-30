@@ -1,6 +1,6 @@
 import "dotenv/config";
 import { db } from "./drizzle";
-import { admins, carTypes, routes, schedules } from "./schema";
+import { admins, carTypes, routes, schedules, companyContents } from "./schema";
 
 async function freshSeed() {
   console.log("Menghapus seluruh isi tabel di database Turso...");
@@ -15,13 +15,16 @@ async function freshSeed() {
     await db.delete(carTypes);
     console.log("✔ Berhasil menghapus semua data tipe kendaraan (carTypes).");
     
+    await db.delete(companyContents);
+    console.log("✔ Berhasil menghapus semua data konten perusahaan (companyContents).");
+    
     await db.delete(admins);
     console.log("✔ Berhasil menghapus semua data admin.");
 
     console.log("Memulai seeding akun admin default...");
     await db.insert(admins).values({
       username: "admin",
-      password: "jembertravel2026",
+      password: "indotravel2026",
     });
     console.log("✔ Berhasil menambahkan akun admin default.");
     console.log("Database Turso berhasil di-reset bersih (fresh seed)!");
